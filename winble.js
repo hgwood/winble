@@ -7,7 +7,7 @@ const _ = require("lodash")
 const events = new EventEmitter()
 
 module.exports = _.assign({},
-  nobleBindings(
+  nobleBluetoothScanner(
     bluetoothScanner(
       deviceWatcher(new EventEmitter()),
       events)),
@@ -16,15 +16,8 @@ module.exports = _.assign({},
   events,
   {on: _.bind(EventEmitter.prototype.on, events)})
 
-function nobleBindings (bluetoothScanner) {
-  return {
-    startScanning () {
-      bluetoothScanner.start()
-    },
-    stopScanning () {
-      bluetoothScanner.stop()
-    },
-  }
+function nobleBluetoothScanner (bluetoothScanner) {
+  return {startScanning: bluetoothScanner.start, stopScanning: bluetoothScanner.stop}
 }
 
 function bluetoothDeviceManager (eventEmitter) {
