@@ -12,7 +12,7 @@ module.exports = _.assign({},
       deviceWatcher(new EventEmitter()),
       events)),
   lifecycle(events),
-  bluetoothDevice(events),
+  bluetoothDeviceManager(events),
   events,
   {on: _.bind(EventEmitter.prototype.on, events)})
 
@@ -27,17 +27,17 @@ function nobleBindings (bluetoothScanner) {
   }
 }
 
-function bluetoothDevice (eventEmitter) {
-  let bluetoothDevice
+function bluetoothDeviceManager (eventEmitter) {
+  const devices = {}
 
   return {connect, discoverServices, discoverCharacteristics, read, write, notify}
 
   function connect (peripheralUuid) {
     const uwpBluetoothAddress = Number("0x" + peripheralUuid)
     Windows.Devices.Bluetooth.BluetoothLEDevice.fromBluetoothAddressAsync(uwpBluetoothAddress).done(
-      function (_bluetoothDevice) {
+      function (bluetoothDevice) {
         debug("Bluetooth device connected", peripheralUuid)
-        bluetoothDevice = _bluetoothDevice
+        devices[peripheralUuid] = bluetoothDevice
         eventEmitter.emit("connect", peripheralUuid, null)
       },
       function (err) {
@@ -47,34 +47,41 @@ function bluetoothDevice (eventEmitter) {
   }
 
   function discoverServices (peripheralUuid, serviceUuids) {
-    // TODO: use the parameters as they should be
-    const services = bluetoothDevice.gattServices.map(service => service.uuid.split("-").join(""))
-    eventEmitter.emit("servicesDiscover", peripheralUuid, services)
+    const discoveredServiceUuids = _(devices[peripheralUuid].gattServices)
+      .map("uuid")
+      .map(stripDashes)
+      .intersection(serviceUuids)
+      .value()
+    eventEmitter.emit("servicesDiscover", peripheralUuid, discoveredServiceUuids)
   }
 
   function discoverCharacteristics (peripheralUuid, serviceUuid, characteristicUuids) {
-    // TODO: use peripheralUuid and characteristicUuids as they should
-    const service = bluetoothDevice.getGattService(serviceUuid)
-    const characteristics = service.getAllCharacteristics().map(characteristic => ({
-      uuid: characteristic.uuid.split("-").join(""),
-      properties: [], // TODO: fill properties
-    }))
-    eventEmitter.emit("characteristicsDiscover", peripheralUuid, serviceUuid, characteristics)
+    const discoveredCharacteristicUuids = _(devices[peripheralUuid])
+      .thru(device => device.getGattService(serviceUuid))
+      .thru(service => service.getAllCharacteristics())
+      .map("uuid")
+      .map(stripDashes)
+      .intersection(characteristicUuids)
+      .map(characteristicUuid => ({uuid: characteristicUuid, properties: []}))
+      .value()
+    eventEmitter.emit("characteristicsDiscover", peripheralUuid, serviceUuid, discoveredCharacteristicUuids)
   }
 
   function read (peripheralUuid, serviceUuid, characteristicUuid) {
-    bluetoothDevice.getGattService(serviceUuid).getCharacteristics(characteristicUuid)[0]
+    devices[peripheralUuid].getGattService(serviceUuid).getCharacteristics(characteristicUuid)[0]
       .readValueAsync()
       .done(data => eventEmitter.emit("read", peripheralUuid, serviceUuid, characteristicUuid, data, false))
   }
 
   function write (peripheralUuid, serviceUuid, characteristicUuid, data, withoutResponse) {
-    bluetoothDevice.getGattService(serviceUuid).getCharacteristics(characteristicUuid)[0]
+    // TODO: what is withoutResponse for?
+    devices[peripheralUuid].getGattService(serviceUuid).getCharacteristics(characteristicUuid)[0]
       .writeValueAsync(Windows.Security.Cryptography.CryptographicBuffer.createFromByteArray(data))
       .done(() => eventEmitter.emit("write", peripheralUuid, serviceUuid, characteristicUuid))
   }
 
   function notify (peripheralUuid, serviceUuid, characteristicUuid, notify) {
+    // TODO: is there anything else to do here?
     eventEmitter.emit("notify", peripheralUuid, serviceUuid, characteristicUuid, notify)
   }
 }
@@ -150,4 +157,8 @@ function deviceWatcher (eventEmitter) {
     stop: () => windowsDeviceWatcher.stop(),
     onNewDevice: callback => eventEmitter.on("onNewDevice", callback),
   }
+}
+
+function stripDashes (uuid) {
+  return uuid.splt("-").join("")
 }
