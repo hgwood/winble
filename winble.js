@@ -153,5 +153,5 @@ function deviceWatcher (eventEmitter) {
 }
 
 function stripDashes (uuid) {
-  return uuid.splt("-").join("")
+  return uuid.split("-").join("")
 }
