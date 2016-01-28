@@ -43,9 +43,11 @@ function bluetoothDeviceManager (eventEmitter) {
     const discoveredServiceUuids = _(devices[peripheralUuid].gattServices)
       .map("uuid")
       .map(stripDashes)
-      .intersection(serviceUuids)
       .value()
-    eventEmitter.emit("servicesDiscover", peripheralUuid, discoveredServiceUuids)
+    const returnedServiceUuids = serviceUuids ?
+      _.intersection(serviceUuids, discoveredServiceUuids) :
+      discoveredServiceUuids
+    eventEmitter.emit("servicesDiscover", peripheralUuid, returnedServiceUuids)
   }
 
   function discoverCharacteristics (peripheralUuid, serviceUuid, characteristicUuids) {
@@ -54,10 +56,13 @@ function bluetoothDeviceManager (eventEmitter) {
       .thru(service => service.getAllCharacteristics())
       .map("uuid")
       .map(stripDashes)
-      .intersection(characteristicUuids)
-      .map(characteristicUuid => ({uuid: characteristicUuid, properties: []}))
       .value()
-    eventEmitter.emit("characteristicsDiscover", peripheralUuid, serviceUuid, discoveredCharacteristicUuids)
+    const filteredCharacteristicUuids = characteristicUuids ?
+      _.intersection(characteristicUuids, filteredCharacteristicUuids) :
+      discoveredCharacteristicUuids
+    const returnedCharacteristicUuids =
+      _.map(filteredCharacteristicUuids, characteristicUuid => ({uuid: characteristicUuid, properties: []}))
+    eventEmitter.emit("characteristicsDiscover", peripheralUuid, serviceUuid, returnedCharacteristicUuids)
   }
 
   function read (peripheralUuid, serviceUuid, characteristicUuid) {
