@@ -4,7 +4,7 @@ uwp.projectNamespace("Windows") /* global Windows */
 const debug = require("debug")("winble")
 const _ = require("lodash")
 
-const events = new EventEmitter()
+const events = withLoggingEmits(new EventEmitter())
 
 module.exports = _.assign({},
   nobleBluetoothScanner(
@@ -12,7 +12,7 @@ module.exports = _.assign({},
       deviceWatcher(new EventEmitter()),
       events)),
   lifecycle(events),
-  bluetoothDeviceManager(events),
+  withLoggingMethods(bluetoothDeviceManager(events)),
   events,
   {on: _.bind(EventEmitter.prototype.on, events)})
 
@@ -159,4 +159,28 @@ function deviceWatcher (eventEmitter) {
 
 function stripDashes (uuid) {
   return uuid.split("-").join("")
+}
+
+function withLoggingMethods (obj) {
+  _.each(_.functions(obj), function (functionKey) {
+    obj[functionKey] = logging(obj[functionKey])
+  })
+  return obj
+}
+
+function logging (f) {
+  return function (...args) {
+    debug(f.name, ...args)
+    const returnValue = f(...args)
+    debug(`end ${f.name}`, returnValue)
+  }
+}
+
+function withLoggingEmits (eventEmitter) {
+  const originalEmit = _.bind(eventEmitter.emit, eventEmitter)
+  eventEmitter.emit = function (...args) {
+    debug("emitting", ...args)
+    originalEmit(...args)
+  }
+  return eventEmitter
 }
