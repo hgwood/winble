@@ -17,8 +17,20 @@ the JavaScript engine from the Edge browser.
 
 ## How to use
 
+### Install all the things
+
+- Install Node.js Chakra. You can find the latest release
+[here](https://github.com/ms-iot/ntvsiot/releases). Make sure to get Node.js 
+with Chakra and *not* the Node.js Tools for Windows IoT (see 
+[here](https://github.com/Microsoft/node-uwp/issues/12#issuecomment-176441369)).
+- `npm install` those from Node.js Chakra prompt:
+  - [node-uwp](https://www.npmjs.com/package/uwp)
+  - [noble](https://www.npmjs.com/package/noble)
+
+### Edit Noble
+
 As of yet, Noble is not extensible without modifiying its source code.
-Noble selects which bindings to use base on the environment. See 
+Noble selects which bindings to use based on the environment. See 
 [here](https://github.com/sandeepmistry/noble/blob/master/lib/noble.js#L16).
 After installing Noble, replace this section of code by 
 `bindings = require("winble")`. You can then use Noble as intended.
