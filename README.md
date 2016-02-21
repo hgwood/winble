@@ -6,13 +6,13 @@ This module is **EXPERIMENTAL**.
 
 [Noble](https://github.com/sandeepmistry/noble) is a project that enables 
 programming Bluetooth 4 (aka Low Energy) devices using Node.js. 
-Unfortunatly, the support Windows is quite poor. Winble is an attempt to
+Unfortunatly, the support for Windows is quite poor. Winble is an attempt to
 make Noble capable of leveraging the native Universal Windows Platform 
 Bluetooth stack. This makes compatible with any Windows 10 devices, from
 PCs to phones and Windows IoT devices.
 
 In order to access the UWP APIs, Winble *must* be run using Node.js 
-Chakra, which the fork of Node.js where V8 is replaced by ChakraCore,
+Chakra, which the fork is of Node.js where V8 is replaced by ChakraCore,
 the JavaScript engine from the Edge browser.
 
 ## How to use
@@ -26,6 +26,8 @@ with Chakra and *not* the Node.js Tools for Windows IoT (see
 - `npm install` those from Node.js Chakra prompt:
   - [node-uwp](https://www.npmjs.com/package/uwp)
   - [noble](https://www.npmjs.com/package/noble)
+  - winble (this module, not published on npm yet but you can checkout this 
+  repo and npm install the resulting folder)
 
 ### Edit Noble
 
