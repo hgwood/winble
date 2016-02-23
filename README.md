@@ -26,8 +26,7 @@ with Chakra and *not* the Node.js Tools for Windows IoT (see
 - `npm install` those from Node.js Chakra prompt:
   - [node-uwp](https://www.npmjs.com/package/uwp)
   - [noble](https://www.npmjs.com/package/noble)
-  - winble (this module, not published on npm yet but you can checkout this 
-  repo and npm install the resulting folder)
+  - winble (this module, not published on npm yet but you can install the repo: `npm i hgwood/winble`)
 
 ### Edit Noble
 
