@@ -6,9 +6,9 @@ This module is **EXPERIMENTAL**.
 
 [Noble](https://github.com/sandeepmistry/noble) is a project that enables
 programming Bluetooth 4 (aka Low Energy) devices using Node.js.
-Unfortunatly, the support for Windows is quite poor. Winble is an attempt to
+Unfortunatly, running it on Windows is not easy. Winble is an attempt to
 make Noble capable of leveraging the native Universal Windows Platform
-Bluetooth stack. This makes compatible it with any Windows 10 devices, from
+Bluetooth stack. This makes it compatible with any Windows 10 devices, from
 PCs to phones and Windows IoT devices.
 
 In order to access the UWP APIs, Winble *must* be run using Node.js
