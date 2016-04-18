@@ -40,7 +40,7 @@ Then use Noble as usual.
 
 Noble <1.4.0 is not extensible without modifiying its source code.
 Noble selects which bindings to use based on the environment. See
-[here](https://github.com/sandeepmistry/noble/blob/master/lib/noble.js#L16).
+[here](https://github.com/sandeepmistry/noble/blob/c81097be7fdaf532cc4047e76bcc97823a0c4c7a/lib/noble.js#L16).
 After installing Noble, replace this section of code by
 `bindings = require('winble')`. You can then use Noble as intended.
 
