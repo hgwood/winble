@@ -51,3 +51,10 @@ to play around with Bluetooth devices. I've used it to program a Sphero BB-8.
 You can connect to the device, then list services and characteristics, and read
 and write to and from characteristics. Note that devices need to be paired using
 Windows before you can connect to them through winble.
+
+## Changelog
+
+- 1.0.1
+  - package.json/readme update
+- 1.0.0
+  - initial release
