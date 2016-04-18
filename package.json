@@ -1,6 +1,6 @@
 {
   "name": "winble",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node.js Chakra Bluetooth communication for the Universal Windows Platform",
   "author": "Hugo Wood",
   "license": "MIT",
