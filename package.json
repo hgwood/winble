@@ -4,6 +4,14 @@
   "description": "Node.js Chakra Bluetooth communication for the Universal Windows Platform",
   "author": "Hugo Wood",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hgwood/winble.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hgwood/winble/issues"
+  },
+  "homepage": "https://github.com/hgwood/winble",
   "main": "index.js",
   "scripts": {
     "lint": "eslint *.js"
