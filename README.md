@@ -4,14 +4,14 @@ Noble bindings for the Universal Windows Platform
 
 This module is **EXPERIMENTAL**.
 
-[Noble](https://github.com/sandeepmistry/noble) is a project that enables 
-programming Bluetooth 4 (aka Low Energy) devices using Node.js. 
+[Noble](https://github.com/sandeepmistry/noble) is a project that enables
+programming Bluetooth 4 (aka Low Energy) devices using Node.js.
 Unfortunatly, the support for Windows is quite poor. Winble is an attempt to
-make Noble capable of leveraging the native Universal Windows Platform 
+make Noble capable of leveraging the native Universal Windows Platform
 Bluetooth stack. This makes compatible it with any Windows 10 devices, from
 PCs to phones and Windows IoT devices.
 
-In order to access the UWP APIs, Winble *must* be run using Node.js 
+In order to access the UWP APIs, Winble *must* be run using Node.js
 Chakra, which is the fork of Node.js where V8 is replaced by ChakraCore,
 the JavaScript engine from the Edge browser.
 
@@ -20,25 +20,29 @@ the JavaScript engine from the Edge browser.
 ### Install all the things
 
 - Install Node.js Chakra. You can find the latest release
-[here](https://github.com/ms-iot/ntvsiot/releases). Make sure to get Node.js 
-with Chakra and *not* the Node.js Tools for Windows IoT (see 
+[here](https://github.com/ms-iot/ntvsiot/releases). Make sure to get Node.js
+with Chakra and *not* the Node.js Tools for Windows IoT (see
 [here](https://github.com/Microsoft/node-uwp/issues/12#issuecomment-176441369)).
 - `npm install` those from Node.js Chakra prompt:
   - [node-uwp](https://www.npmjs.com/package/uwp)
   - [noble](https://www.npmjs.com/package/noble)
   - winble (this module, not published on npm yet but you can install the repo: `npm i hgwood/winble`)
 
-### Edit Noble
+### Tell Noble to use Winble (noble >= 1.4.0)
 
-As of yet, Noble is not extensible without modifiying its source code.
-Noble selects which bindings to use based on the environment. See 
+To get an instance of Noble that uses Winble under the hood, do this:
+
+`const noble = require('noble/with-bindings')(require('winble'))`
+
+Then use Noble as usual.
+
+### Edit Noble (noble < 1.4.0)
+
+Noble <1.4.0 is not extensible without modifiying its source code.
+Noble selects which bindings to use based on the environment. See
 [here](https://github.com/sandeepmistry/noble/blob/master/lib/noble.js#L16).
-After installing Noble, replace this section of code by 
-`bindings = require("winble")`. You can then use Noble as intended.
-
-I'm planning on submitting a PR to add Windle to the list of supported
-bindings. Winble could be activated when the OS is Windows and the JS engine is
-ChakraCore.
+After installing Noble, replace this section of code by
+`bindings = require('winble')`. You can then use Noble as intended.
 
 ## Limitations
 
