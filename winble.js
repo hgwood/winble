@@ -58,7 +58,7 @@ function bluetoothDeviceManager (eventEmitter) {
       .map(stripDashes)
       .value()
     const filteredCharacteristicUuids = characteristicUuids ?
-      _.intersection(characteristicUuids, filteredCharacteristicUuids) :
+      _.intersection(characteristicUuids, discoveredCharacteristicUuids) :
       discoveredCharacteristicUuids
     const returnedCharacteristicUuids =
       _.map(filteredCharacteristicUuids, characteristicUuid => ({uuid: characteristicUuid, properties: []}))
