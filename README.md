@@ -26,7 +26,7 @@ with Chakra and *not* the Node.js Tools for Windows IoT (see
 - `npm install` those from Node.js Chakra prompt:
   - [node-uwp](https://www.npmjs.com/package/uwp)
   - [noble](https://www.npmjs.com/package/noble)
-  - winble (this module, not published on npm yet but you can install the repo: `npm i hgwood/winble`)
+  - winble (this module)
 
 ### Tell Noble to use Winble (noble >= 1.4.0)
 
@@ -54,6 +54,8 @@ Windows before you can connect to them through winble.
 
 ## Changelog
 
+- 1.0.2
+  - Fix for incorrect intersection in discoverCharacteristics (#3)
 - 1.0.1
   - package.json/readme update
 - 1.0.0
