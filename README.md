@@ -15,6 +15,10 @@ In order to access the UWP APIs, Winble *must* be run using Node.js
 Chakra, which is the fork of Node.js where V8 is replaced by ChakraCore,
 the JavaScript engine from the Edge browser.
 
+## Maintenance
+
+I'm not actively maintaining this because I'm not using it. I wrote it for fun. However, I will promptly review issues and merge contributions. Feel free. :)
+
 ## How to use
 
 ### Install all the things
