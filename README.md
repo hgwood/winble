@@ -1,6 +1,6 @@
 # Winble
 
-Noble bindings for the Universal Windows Platform
+Noble bindings for the Universal Windows Platform.
 
 This module is **EXPERIMENTAL**.
 
@@ -14,6 +14,10 @@ PCs to phones and Windows IoT devices.
 In order to access the UWP APIs, Winble *must* be run using Node.js
 Chakra, which is the fork of Node.js where V8 is replaced by ChakraCore,
 the JavaScript engine from the Edge browser.
+
+## Alternative
+
+Check out the more recent https://github.com/jasongin/noble-uwp, which should not require Node.js Chakra nor devices to be paired before using it.
 
 ## Maintenance
 
