@@ -17,7 +17,7 @@ the JavaScript engine from the Edge browser.
 
 ## Alternative
 
-Check out the more recent https://github.com/jasongin/noble-uwp, which should not require Node.js Chakra nor devices to be paired before using it.
+Check out the more recent https://github.com/jasongin/noble-uwp, which should not require Node.js Chakra nor devices to be paired before using it. It does, however, require a more up-to-date Windows 10 installation.
 
 ## Maintenance
 
