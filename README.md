@@ -21,7 +21,7 @@ Check out the more recent https://github.com/jasongin/noble-uwp, which should no
 
 ## Maintenance
 
-I'm not actively maintaining this because I'm not using it. I wrote it for fun. However, I will promptly review issues and merge contributions. Feel free. :)
+I'm not actively maintaining this because I'm not using it. I wrote it for fun.
 
 ## How to use
 
